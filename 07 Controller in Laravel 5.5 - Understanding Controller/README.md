@@ -1,0 +1,26 @@
+# 07 Controller in Laravel 5.5 - Understanding Controller
+
+- Controller meletakkan logic aplikasi yang dibuat dibanding dimasukkan kedalam function route sehingga mudah diorganisir
+- Controller digunakan untuk proses Create Read Update Delete pada data di database (CRUD)
+- Untuk membuat file controller gunakan php artisan di terminal yaitu :        
+    - Buka Terminal
+    - php artisan make:controller NamaController
+        - Contoh : php artisan make:controller PostController
+        - Catatan : usahakan nama controller pada setiap kata diawali huruf kapital dan disambung setiap kata tersebut            
+        - Jika berhasil maka file PostController terbuat
+    - Setiap controller menggunakan class Request untuk menhandle setiap inputan yang dikirim user
+    - Method-method akan dibuat pada controller
+- Perubahan pada folder blog yaitu : 
+    - app/Http/Controllers/Controller.php
+    - app/Http/Controllers/PostController.php
+    - routes/web.php   
+    - resources/views/create.blController meletakkan logic aplikasi yang dibuat dibanding dimasukkan kedalam function route sehingga mudah diorganisir
+- Controller digunakan untuk proses Create Read Update Delete pada data di database (CRUD)
+- Untuk membuat file controller gunakan php artisan di terminal yaitu :        
+    - Buka Terminal
+    - php artisan make:controller NamaController
+        - Contoh : php artisan make:controller PostController
+        - Catatan : usahakan nama controller pada setiap kata diawali huruf kapital dan disambung setiap kata tersebut            
+        - Jika berhasil maka file PostController terbuat
+    - Setiap controller menggunakan class Request untuk menhandle setiap inputan yang dikirim user
+    - Method-method akan dibuat pada controllerade.php 

@@ -89,7 +89,8 @@
 - Buka Terminal
 - sudo apt install php7.1-mysql mysql-server mysql-client mysql-workbench
     - Jika diminta password maka ketikkan password yang diinginkan namun jika default password yaitu :
-        - root
+        - Username : phpmyadmin
+        - Password : root
 - sudo systemctl status mysql
 
 # 04 Laravel 5.5 Project Structure

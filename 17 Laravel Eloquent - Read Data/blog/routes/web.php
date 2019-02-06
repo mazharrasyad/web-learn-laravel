@@ -1,5 +1,8 @@
 <?php
 
+// Untuk mengaitkan model perlu menggunakan perintah use dengan namespacenya
+use App\Posts;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,10 +43,6 @@ Route::get('/read', function(){
 });
 
 Route::get('/update', function(){
-    // Cara ke 1
-    $updated = DB::update('update posts set title = "Update field title" where id = ?', [1]);
-
-    // Cara ke 2
     $data = [
         'title' => 'Isian Title',
         'body' => 'Isian Body baru'
@@ -51,4 +50,20 @@ Route::get('/update', function(){
     $updated = DB::table('posts')->where('id', 1)->update($data);
     
     return $updated;
+});
+
+Route::get('/delete', function(){
+    $delete = DB::table('posts')->where('id', 2)->delete();
+
+    return $delete;
+});
+
+Route::get('/posts', function(){
+    $posts = Post::all();
+    return $posts;
+});
+
+Route::get('/find', function(){
+    $post = Post::find(5);
+    return $post;
 });

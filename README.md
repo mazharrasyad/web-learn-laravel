@@ -93,6 +93,16 @@
         - Password : root
 - sudo systemctl status mysql
 
+- Jika hanya menginstall laravel tanpa valet dan xampp gunakan langkah berikut :
+    - Install XAMPP Ubuntu
+    - Buka Terminal
+    - cd /opt/lampp/htdocs
+    - composer create-project --prefer-dist laravel/laravel nama
+        - Contoh : composer create-project --prefer-dist laravel/laravel blog
+    - Buka Browser dan ketikkan URL
+    - http://localhost/nama/public
+        - Contoh : http://localhost/blog/public
+
 # 04 Laravel 5.5 Project Structure
 
 - Berikut struktur laravel yang sering digunakan :

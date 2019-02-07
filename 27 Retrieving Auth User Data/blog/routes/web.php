@@ -76,7 +76,7 @@ Route::get('/create', function(){
     $post = new Post();
     $post->title = 'Isi Judul Postingan';
     $post->body = 'Isian body dari postingan';
-    $post->user_id = 3;
+    $post->user_id = Auth::user()->id;
     
     $post->save();
 });
@@ -85,7 +85,7 @@ Route::get('/createpost', function(){
     $post = Post::create([
         'title' => 'Create data dari method create',
         'body' => 'Kita isi dengan isian post dari create method',
-        'user_id' => 1
+        'user_id' => Auth::user()->id
     ]);
 });
 
@@ -125,3 +125,12 @@ Route::get('/forcedelete', function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/user', function(){
+    return Auth::user();
+    // return Auth::user()->name;
+    // return Auth::user()->email;
+});
+
+// Menggunakan Middleware
+Route::get('/user', 'HomeController@user');

@@ -5,4 +5,5 @@
     - php artisan make:model NamaModel
         - Contoh : php artisan make:model Post
 - Perubahan pada folder blog yaitu :     
+    - app/Post.php
     - routes/web.php

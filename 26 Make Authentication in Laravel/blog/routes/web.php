@@ -1,6 +1,5 @@
 <?php
 
-// Untuk mengaitkan model perlu menggunakan perintah use dengan namespacenya
 use App\Post;
 
 /*
@@ -66,4 +65,59 @@ Route::get('/posts', function(){
 Route::get('/find', function(){
     $post = Post::find(5);
     return $post;
+});
+
+Route::get('findWhere', function(){
+    $posts = Post::where('user_id', 2)->orderBy('id', 'desc')->take(1)->get();
+    return $posts;
+});
+
+Route::get('/create', function(){
+    $post = new Post();
+    $post->title = 'Isi Judul Postingan';
+    $post->body = 'Isian body dari postingan';
+    $post->user_id = 3;
+    
+    $post->save();
+});
+
+Route::get('/createpost', function(){
+    $post = Post::create([
+        'title' => 'Create data dari method create',
+        'body' => 'Kita isi dengan isian post dari create method',
+        'user_id' => 1
+    ]);
+});
+
+Route::get('/updatepost', function(){
+    $post = Post::where('id', 5);
+    $post->update([
+        'title' => 'Update data di 5 dari method create',
+        'body' => 'Kita isi dengan isian post dari update method',
+        'user_id' => 5
+    ]);  
+});
+
+Route::get('/deletepost', function(){
+    $post = Post::where('user_id', 3);
+    $post->delete();
+});
+
+Route::get('/softdelete', function(){
+    Post::destroy(10);
+});
+
+Route::get('/trash', function(){
+    $posts = Post::onlyTrashed()->get();
+    return $posts;
+});
+
+Route::get('/restore', function(){
+    $posts = Post::onlyTrashed()->restore();
+    return $posts;
+});
+
+Route::get('/forcedelete', function(){
+    $post = Post::find(13)->forceDelete();
+    dd($post);
 });

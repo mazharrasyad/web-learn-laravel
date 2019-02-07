@@ -1,6 +1,5 @@
 <?php
 
-// Untuk mengaitkan model perlu menggunakan perintah use dengan namespacenya
 use App\Post;
 
 /*
@@ -66,4 +65,38 @@ Route::get('/posts', function(){
 Route::get('/find', function(){
     $post = Post::find(5);
     return $post;
+});
+
+Route::get('findWhere', function(){
+    $posts = Post::where('user_id', 2)->orderBy('id', 'desc')->take(1)->get();
+    return $posts;
+});
+
+Route::get('/create', function(){
+    $post = new Post();
+    $post->title = 'Isi Judul Postingan';
+    $post->body = 'Isian body dari postingan';
+    $post->user_id = 3;
+    
+    $post->save();
+});
+
+Route::get('/createpost', function(){
+    $post = Post::create([
+        'title' => 'Create data dari method create',
+        'body' => 'Kita isi dengan isian post dari create method',
+        'user_id' => 1
+    ]);
+});
+
+Route::get('/updatepost', function(){
+    // Cara ke 1
+    $post = Post::find(5);
+    // Cara ke 2
+    $post = Post::where('id', 5);
+    $post->update([
+        'title' => 'Update data di 5 dari method create',
+        'body' => 'Kita isi dengan isian post dari update method',
+        'user_id' => 5
+    ]);  
 });

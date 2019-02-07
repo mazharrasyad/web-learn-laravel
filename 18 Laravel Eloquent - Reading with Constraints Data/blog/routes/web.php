@@ -1,6 +1,5 @@
 <?php
 
-// Untuk mengaitkan model perlu menggunakan perintah use dengan namespacenya
 use App\Post;
 
 /*
@@ -66,4 +65,10 @@ Route::get('/posts', function(){
 Route::get('/find', function(){
     $post = Post::find(5);
     return $post;
+});
+
+Route::get('findWhere', function(){
+    $posts = Post::where('user_id', 2)->orderBy('id', 'desc')->take(1)->get();
+    // Method take() hanya mengambil data sesuai ketentuan
+    return $posts;
 });

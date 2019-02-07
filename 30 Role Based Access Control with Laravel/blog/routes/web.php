@@ -136,6 +136,6 @@ Route::get('/admin', function(){
     return 'Halaman Admin';
 })->middleware('role');
 
-Route::get('/member'. function(){
+Route::get('/member', function(){
     return 'Halaman Member';
 });

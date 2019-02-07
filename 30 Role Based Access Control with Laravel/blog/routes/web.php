@@ -134,7 +134,7 @@ Route::get('/user', 'HomeController@user');
 
 Route::get('/admin', function(){
     return 'Halaman Admin';
-})->middleware('role');
+})->middleware(['role', 'auth']);
 
 Route::get('/member', function(){
     return 'Halaman Member';

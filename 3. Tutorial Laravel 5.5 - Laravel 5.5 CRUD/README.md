@@ -1,5 +1,3 @@
-# 01 Introduce
-
 # Referensi
 
 - Narasumber : Hakim Sembiring M

@@ -5,6 +5,6 @@
     - Tentukan primary key atau id yang ingin diinputkan
     - Masukkan data baru model yang tablenya dijadikan foreign key
     - primary_key->method()->save(foreign_key)
-- Perubahan pada file di project  :
+- Perubahan pada file di project relation :
     - app/User.php
     - routes/web.php

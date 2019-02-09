@@ -18,6 +18,7 @@ Route::get('/', function () {
 use App\User; // User Primary Key, hasOne
 use App\Profile; // Profile Foreign Ket, belongsTo
 
+// Test One To One
 
 Route::get('/create_user', function(){
     $user = User::create([
@@ -142,4 +143,73 @@ Route::get('/delete_profile', function(){
     $user->profile()->delete();
 
     return $user;
+
+});
+
+// Test One To Many
+
+Route::get('/create_post', function(){
+    // Cara ke 1
+    // id yang baru dibuat akan sama dengan user_id
+    // contoh id = 1 maka user_id = 1
+    $user = User::create([
+        'name' => 'Azhar',
+        'email' => 'azhar@gmail.com',
+        'password' => bcrypt('password')
+    ]);
+
+    $user->posts()->create([
+        'title' => 'Isi Title Post',
+        'body' => 'Hello World! Ini isi dari body table Post'
+    ]);
+
+    // Cara ke 2
+    // Menggunakan id table users yang sudah ada
+    $user = User::findOrFail(1);
+
+    $user->posts()->create([
+        'title' => 'Isi Title Post',
+        'body' => 'Hello World! Ini isi dari body table Post'
+    ]);
+
+    return 'Success';
+});
+
+Route::get('/read_post', function () {    
+    $user = User::find(1);
+
+    // Cara ke 1
+    // return $user->posts();
+    // Terjadi error HasMany could not be converted to string
+
+    // Cara ke 2
+    // dd($user->posts()->get());
+
+    // Cara ke 3
+    // get() Mengambil seluruh data
+    $posts = $user->posts()->get();
+
+    foreach ($posts as $post) {
+        $data[] = [
+            'name' => $post->user->name,
+            'post_id' => $post->id,
+            'title' => $post->title,
+            'body' => $post->body
+        ];
+    }
+
+    return $data;
+
+    // Cara ke 4
+    // first() Mengambil data yang pertama dibuat
+    // $post = $user->posts()->first();
+
+    // $data[] = [
+    //     'name' => $post->user->name,
+    //     'post_id' => $post->id,
+    //     'title' => $post->title,
+    //     'body' => $post->body
+    // ];
+
+    // return $data;
 });

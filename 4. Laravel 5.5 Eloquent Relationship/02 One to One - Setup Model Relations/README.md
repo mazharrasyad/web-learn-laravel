@@ -8,7 +8,7 @@
 - Konfigurasi dari model User ke model Profile yaitu :
     - Model User membuat method untuk melakukan relation pada model profile
     - Artinya User memiliki 1 Profile
-- Perubahan pada file di project  :
+- Perubahan pada file di project relation :
     - app/User.php
     - app/Profile.php
     - database/migrations/2019_02_08_133556_create_profiles_table.php

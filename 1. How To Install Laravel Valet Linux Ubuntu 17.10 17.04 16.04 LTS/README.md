@@ -5,7 +5,7 @@
 - sudo apt install curl git php7.1 php7.1-mbstring php7.1-mcrypt php7.1-xml php7.1-zip php7.1-curl
 - php -v
 - Jika versi php bukan php7.1 maka gunakan perintah berikut : 
-    - sudo update-alternatives --set php /usr/bin/php7.1
+  - sudo update-alternatives --set php /usr/bin/php7.1
 - curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 - composer
 - sudo chmod -R 777 ~/.composer

@@ -2,7 +2,7 @@
 
 namespace App;
 
-trait LikeTrait;
-{
-    return;
-}
+// trait LikeTrait;
+// {
+//     return;
+// }

@@ -50,4 +50,5 @@
 # Referensi
 
 - Narasumber : Hakim Sembiring M
+- Channel : IDStack
 - Link : https://www.youtube.com/watch?v=dFO9UcbTIDs&index=2&list=PL1aMeb5UP_PHlG2s2mluMd3DY8Bo_hZ1A

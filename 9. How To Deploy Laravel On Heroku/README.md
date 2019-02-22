@@ -1,0 +1,145 @@
+# 01 Introduction and First Step
+
+- Buka link https://dashboard.heroku.com/
+- Login atau Sign Up jika belum memiliki akun
+- Buka link https://devcenter.heroku.com/articles/heroku-cli#download-and-install
+    - Kemudian install sesuai dengan sistem operasi yang digunakan
+    - Jika berhasil diinstall maka coba ketik perintah "heroku" di command line tanpa tanda petik dua ("")
+    - Jika sudah berhasil install maka ketik perintah "heroku login" di command line tanpa tanda petik dua ("") dan jika sudah masukkan email serta password yang digunakan saat daftar di website heroku
+- Buat project laravel baru atau gunakan yang sudah ada di localhost    
+    - composer create-project --prefer-dist laravel/laravel larahero
+- Buka project tersebut dengan text editor
+- Kemudian buat file baru dengan nama Procfile tanpa extensi larahero/Procfile sebagai file konfigurasi untuk heroku dan harus menentukan service mana yang akan digunakan
+- Tambahkan perintah berikut pada file Procfile :
+    - web: vendor/bin/heroku-php-apache2 public/ atau web: $(composer config bin-dir)/heroku-php-apache2 public/
+        - web yaitu layanan web
+        - vendor/bin/heroku-php-apache2 yaitu web server
+        - public/ yaitu untuk diarahkan ke project laravel di direktori public/
+- Kemudian perlu diinisialisasi git ke dalam project laravel dengan perintah berikut :
+    - Buka command line dan arahkan ke direktori project laravel
+    - git init (untuk list file-file apa saja yang akan dipush)        
+    - heroku create (untuk membuat tempat atau repository website yang akan diupload)
+    - heroku buildpacks:set heroku/php
+        - heroku buildpacks:set yaitu agar dapat disetting
+        - heroku/php yaitu aplikasi yang ingin digunakan berbasis php
+    - git add . (untuk menambahkan file-file yang akan diupload)
+    - git commit -m 'First Commit' (untuk memberikan catatan file-file apa yang dibuat, diedit, atau dihapus) 
+    - git push heroku master
+- Jika tidak ada error maka project laravel berhasil di upload ke repository heroku
+
+# 02 Setting Up Variables Config Laravel on Heroku
+
+- Jika video pertama berhasil dilakukan maka buka link https://dashboard.heroku.com/apps dan akan ada app baru yang terbuat, contoh dengan nama safe-beach-97656
+- Kemudian klik app tersebut untuk melihat repository app yang dibuat
+- Pilih menu Open app yang ada di navigasi bar di atas kanan
+- Tampilan yang dihasilkan bukan landing page laravel melainkan landing page heroku
+- Untuk merubahnya diperlukan konfigurasi yaitu :
+    - Buka file .env yang ada di larahero/.env
+    - Kemudian kembali ke repository app tadi
+    - Pilih menu Settings yang berada pada tab menu di tengah
+    - Terdapat field Config Vars dan tekan Reveal Config Vars
+    - Terdapat 2 field yaitu KEY dan VALUE, contoh :
+        - APP_NAME sebagai KEY
+        - Laravel sebagai VALUE
+    - Diatas merupakan cara konfigurasi dengan GUI untuk menggunakan command line perhatikan contoh berikut :
+        - heroku config:add APP_ENV=production
+            - production yaitu dikarenakan mencobanya secara online bukan local secara offline
+    - Jika berhasil maka reload halaman web Settings tadi
+    - Kemudian lanjutkan hingga keseluruhan APP dimasukkan kedalam Config Vars dan VALUEnya tergantung konfigurasi web yang diinginkan, contoh :  
+        - heroku config:add APP_KEY=base64:arXIyuH8Ig2pds13rEy6r5Z7S27yaKH6WDpnA0zORGc=
+        - heroku config:add APP_DEBUG=true
+        - heroku config:add APP_URL=https://safe-beach-97656.herokuapp.com/
+- Jika berhasil maka landing page akan berubah menjadi landing page laravel
+
+# 03 Using Postgresql on Laravel local
+
+- Hosting heroku yang free tidak menyediakan Mysql melainkan Postgresql dan jika ingin menggunakan mysql maka perlu berlangganan
+- Berikut cara install postgresql :
+    - sudo apt-get update
+    - sudo apt-get install postgresql postgresql-contrib
+    - service postgresql status
+    - sudo su postgres
+    - psql
+    - \l
+    - \du
+    - alter user postgres with password 'postgres';
+    - create user apsql with password 'apsql';
+    - \du
+    - alter user apsql with superuser;
+    - \du
+    - \q
+    - man psql
+- Ketikkan sudo systemctl status postgres jika berhasil maka server active
+- Kemudian install pgadmin untuk konfigurasi postgres dalam mode GUI
+- Salah satu contoh install pgadmin pada link https://wiki.postgresql.org/wiki/Apt
+- Jika berhasil maka akan ada aplikasi pgadmin
+- Kemudian buka pgadmin dan buat server yang baru dengan ketentuan :
+    - nama = localhost
+    - host = 127.0.0.1
+    - username = postgres
+    - password = postgres
+- Buat database pada server yang dibuat dengan nama db_larahero dengan owner postgres atau apsql
+- Untuk menghubungkan koneksi postgresql atau pgsql ke dalam heroku dengan konfigurasi berikut :
+    - larahero/config/database.php untuk hosting 
+        - 'default' => env('DB_CONNECTION', 'pgsql'),
+        - 'pgsql' => [
+            - 'driver' => 'pgsql',
+            - 'host' => env('DB_HOST', '127.0.0.1'),
+            - 'port' => env('DB_PORT', '5432'),
+            - 'database' => env('DB_DATABASE', 'db_larahero'),
+            - 'username' => env('DB_USERNAME', 'apsql'),
+            - 'password' => env('DB_PASSWORD', 'apsql'),
+            - 'charset' => 'utf8',
+            - 'prefix' => '',
+            - 'prefix_indexes' => true,
+            - 'schema' => 'public',
+            - 'sslmode' => 'prefer',
+        - ],
+    - .env untuk local :
+        - DB_CONNECTION=pgsql
+        - DB_HOST=127.0.0.1
+        - DB_PORT=5432
+        - DB_DATABASE=db_larahero
+        - DB_USERNAME=apsql
+        - DB_PASSWORD=apsql
+- Untuk mencoba postgresql dapat dicoba dengan menggunakan fitur auth login yang disediakan laravel
+- Ketik php artisan make:auth untuk membuat form register dan login
+- Kemudian php artisan migrate:refresh
+- Jika berhasil maka lakukan registrasi dan login
+
+# 04 Using Postgresql on Laravel Heroku
+
+- Untuk menggunakan postgres dalam hosting heroku perlu dilakukan konfigurasi server
+- Pertama buka repository app yang telah dibuat sebelumnya
+- Pilih menu Resources pada navigasi bar di tengah
+- Pada field Add-ons ketikkan Heroku Postgres dan tekan
+- Plan name diisikan Hobby Dev - Free
+- Kemudian refresh halaman dan klik add ons Heroku Postgres untuk membuat database
+- Pilih menu Settings dan pilih button View Credentials...
+- Pada file larahero/.env pada seluruh key DB masukkan value yang ada pada Credentials di heroku, berikut contohnya :
+    - DB_HOST=ec2-107-21-99-237.compute-1.amazonaws.com
+    - DB_PORT=5432
+    - DB_DATABASE=d11dq43v6u0rv0
+    - DB_USERNAME=wnpivrigwyhizz
+    - DB_PASSWORD=8ec06ddbee0d278e9332dcdc5ffe35093993482afc3eda0ccf4841d949a90203
+- Kemudian buka command line dan masukkan kembali ke dalam config vars untuk semua key dan value DB, seperti berikut :
+    - heroku config:add DB_CONNECTION=pgsql
+    - heroku config:add DB_HOST=ec2-107-21-99-237.compute-1.amazonaws.com
+    - heroku config:add DB_PORT=5432
+    - heroku config:add DB_DATABASE=d11dq43v6u0rv0
+    - heroku config:add DB_USERNAME=wnpivrigwyhizz
+    - heroku config:add DB_PASSWORD=8ec06ddbee0d278e9332dcdc5ffe35093993482afc3eda0ccf4841d949a90203
+- Buka pgadmin untuk mengatur server heroku ke pgadmin
+- Setelah di setting maka push auth yang sebelumnya dibuat :
+    - git add .
+    - git commit -m 'Message'
+    - get push heroku master
+- Ketik peritnah berikut untuk migrate database :
+    - heroku run php artisan migrate:refresh 
+    - atau heroku run bash kemudian php artisan migrate:refresh
+- Coba melakukan register pada project laravel yang ada di heroku
+- Jika berhasil maka laravel siap di kembangkan lagi
+
+# Referensi
+
+- https://www.youtube.com/playlist?list=PL1aMeb5UP_PG1c7KcB-5RGjN8C5q5kzWX

@@ -1,4 +1,4 @@
-# Step
+# Mengunggah Laravel ke Shared Hosting - 01 Menghilangkan Public URL
 
 - Duplicate file namaproject/server.php
 - Ganti namanya menjadi index.php
@@ -28,4 +28,4 @@
 # Referensi
 
 - https://idtuto.com/tips-dan-cara-menghapus-url-public-pada-laravel/
-- https://www.youtube.com/playlist?list=PL1aMeb5UP_PGmwXDBzrp8diCFHf0xN1IC
+- https://www.youtube.com/watch?v=mRk8P7j4Vhw&list=PL1aMeb5UP_PGmwXDBzrp8diCFHf0xN1IC&index=1
